@@ -28,5 +28,5 @@ private:
 	USceneComponent* Root;
 
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* Mesh;
+	USkeletalMeshComponent* Mesh;
 };

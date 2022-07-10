@@ -43,21 +43,33 @@ void APressurePlate::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AA
 
 	FHttpRequestRef Request = FHttpModule::Get().CreateRequest();
 
+	TSharedRef<FJsonObject> RequestObj = MakeShared<FJsonObject>();
+	RequestObj->SetStringField("player", "egg");
+	RequestObj->SetNumberField("points", 10);
+
+	FString RequestBody;
+	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
+	FJsonSerializer::Serialize(RequestObj, Writer);
+
 	Request->OnProcessRequestComplete().BindUObject(this, &APressurePlate::OnResponseReceived);
-	Request->SetURL("https://zlfpjbenpgattmgznehs.supabase.co/rest/v1/test-table?select=*");
-	Request->SetVerb("GET");
+	Request->SetURL("https://zlfpjbenpgattmgznehs.supabase.co/rest/v1/leaderboard");
+	Request->SetVerb("POST");
 	Request->SetHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZnBqYmVucGdhdHRtZ3puZWhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM0MzgyNjMsImV4cCI6MTk2OTAxNDI2M30.0NTVL2NJeB2JZyjv_AIpo08vOghZSSnd1jciPRujkPQ");
 	Request->SetHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZnBqYmVucGdhdHRtZ3puZWhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM0MzgyNjMsImV4cCI6MTk2OTAxNDI2M30.0NTVL2NJeB2JZyjv_AIpo08vOghZSSnd1jciPRujkPQ");
+	Request->SetHeader("Content-Type:", "application/json");
+	Request->SetContentAsString(RequestBody);
+	
 	Request->ProcessRequest();
 }
 
 void APressurePlate::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Response: EGG"));
 	// UE_LOG(LogTemp, Warning, TEXT("Response: %s"), *Response->GetContentAsString());
 
-	FString responseText = (TEXT("Response: %s"), *Response->GetContentAsString());
+	// FString responseText = (TEXT("Response: %s"), *Response->GetContentAsString());
 
-	if (GEngine) {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, responseText);
-	}
+	// if (GEngine) {
+	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, responseText);
+	// }
 }

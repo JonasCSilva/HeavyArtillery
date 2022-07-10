@@ -16,7 +16,6 @@ APressurePlate::APressurePlate()
 	if (!ensure(PressureVolume != nullptr)) return;
 
 	RootComponent = PressureVolume;
-
 }
 
 // Called when the game starts or when spawned

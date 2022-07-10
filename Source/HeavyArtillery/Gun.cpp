@@ -6,8 +6,6 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
-#include "Json.h"
-#include "UObject/ConstructorHelpers.h"
 
 // Sets default values
 AGun::AGun()

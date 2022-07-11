@@ -12,7 +12,7 @@ class AHeavyArtilleryGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	AHeavyArtilleryGameMode();
+	virtual void PawnKilled(APawn* PawnKilled);
 };
 
 

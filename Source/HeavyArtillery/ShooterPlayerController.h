@@ -10,6 +10,26 @@
 /**
  * 
  */
+
+USTRUCT(BlueprintType)
+struct FMyArrayStruct
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	int32 Id;
+
+	UPROPERTY(EditAnywhere)
+	float Seconds;
+
+	UPROPERTY(EditAnywhere)
+	FString Name;
+
+	FMyArrayStruct()
+	{
+	}
+};
+
 UCLASS()
 class HEAVYARTILLERY_API AShooterPlayerController : public APlayerController
 {
@@ -34,12 +54,24 @@ private:
 	TSubclassOf<class UUserWidget> WinScreenClass;
 
 	UPROPERTY(EditAnywhere)
-	float RestartDelay = 5;
+	TSubclassOf<class UUserWidget> LeaderboardScreenClass;
 
-	FTimerHandle RestartTimer;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UUserWidget> LoadingScreenClass;
 
 	UPROPERTY()
 	UUserWidget* HUD;
+
+	UPROPERTY()
+	UUserWidget* LeaderboardScreen;
+
+	UPROPERTY()
+	UUserWidget* LoadingScreen;
+
+	UPROPERTY(EditAnywhere)
+	float RestartDelay = 5;
+
+	FTimerHandle RestartTimer;
 
 	UFUNCTION(BlueprintCallable)
 	void UnPause();
@@ -47,10 +79,31 @@ private:
 	UPROPERTY(EditAnywhere)
 	bool bGameStarted = false;
 
+	UPROPERTY(EditAnywhere)
+	bool bSent = false;
+
 	UPROPERTY(VisibleAnywhere)
 	float Seconds = 0;
 
-	void ExecuteRequest();
+	UPROPERTY(EditAnywhere)
+	FString Name;
 
-	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
+	UPROPERTY()
+	TArray<FMyArrayStruct> MyArray;
+
+	UFUNCTION(BlueprintCallable)
+	void ChangeName(FString NewName);
+
+	void ExecutePostRequest();
+
+	void ExecuteGetRequest();
+
+	void OnGetResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
+
+	void ExecutePatchRequest(FString Url);
+
+	void OnResponseReceivedLog(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
+
+	UFUNCTION(BlueprintCallable)
+	void ExecuteDeleteRequest();
 };

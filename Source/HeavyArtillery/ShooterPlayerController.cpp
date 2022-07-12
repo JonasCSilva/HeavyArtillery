@@ -195,11 +195,11 @@ void AShooterPlayerController::OnGetResponseReceived(FHttpRequestPtr Request, FH
         }
     }
 
-    FString responseText = (TEXT("Response: %s"), *Response->GetContentAsString());
+    // FString responseText = (TEXT("Response: %s"), *Response->GetContentAsString());
 
-    if (GEngine) {
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, responseText);
-    }
+    // if (GEngine) {
+    //    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, responseText);
+    // }
 
     if (LoadingScreen != nullptr)
     {

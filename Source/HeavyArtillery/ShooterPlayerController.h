@@ -16,13 +16,13 @@ struct FMyArrayStruct
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Id;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float Seconds;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FString Name;
 
 	FMyArrayStruct()
@@ -39,6 +39,9 @@ public:
 	virtual void GameHasEnded(class AActor* EndGameFocus = nullptr, bool bIsWinner = false) override;
 
 	virtual void Tick(float DeltaSeconds) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FMyArrayStruct> MyArray;
 
 protected:
 	virtual void BeginPlay() override;
@@ -59,6 +62,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UUserWidget> LoadingScreenClass;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UUserWidget> RowClass;
+
 	UPROPERTY()
 	UUserWidget* HUD;
 
@@ -67,6 +73,9 @@ private:
 
 	UPROPERTY()
 	UUserWidget* LoadingScreen;
+
+	UPROPERTY()
+	UUserWidget* Row;
 
 	UPROPERTY(EditAnywhere)
 	float RestartDelay = 5;
@@ -87,9 +96,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	FString Name;
-
-	UPROPERTY()
-	TArray<FMyArrayStruct> MyArray;
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeName(FString NewName);

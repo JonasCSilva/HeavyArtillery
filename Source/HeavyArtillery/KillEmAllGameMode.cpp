@@ -6,6 +6,12 @@
 #include "GameFramework/Controller.h"
 #include "ShooterAIController.h"
 
+AKillEmAllGameMode::AKillEmAllGameMode()
+{
+	// PrimaryActorTick.bStartWithTickEnabled = true;
+	// PrimaryActorTick.bCanEverTick = true;
+}
+
 void AKillEmAllGameMode::PawnKilled(APawn* PawnKilled)
 {
 	Super::PawnKilled(PawnKilled);
@@ -26,6 +32,11 @@ void AKillEmAllGameMode::PawnKilled(APawn* PawnKilled)
 	}
 
 	EndGame(true);
+}
+
+void AKillEmAllGameMode::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
 }
 
 void AKillEmAllGameMode::EndGame(bool bIsPlayerWinner)

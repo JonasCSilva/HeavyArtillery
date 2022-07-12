@@ -13,9 +13,14 @@ UCLASS()
 class HEAVYARTILLERY_API AKillEmAllGameMode : public AHeavyArtilleryGameMode
 {
 	GENERATED_BODY()
-	
+
 public:
+	AKillEmAllGameMode();
+	
 	virtual void PawnKilled(APawn* PawnKilled) override;
+
+public:
+	virtual void Tick(float DeltaSeconds) override;
 
 private:
 	void EndGame(bool bIsPlayerWinner);

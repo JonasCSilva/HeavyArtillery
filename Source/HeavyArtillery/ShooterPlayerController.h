@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Http.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "ShooterPlayerController.generated.h"
@@ -16,6 +17,8 @@ class HEAVYARTILLERY_API AShooterPlayerController : public APlayerController
 
 public:
 	virtual void GameHasEnded(class AActor* EndGameFocus = nullptr, bool bIsWinner = false) override;
+
+	virtual void Tick(float DeltaSeconds) override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -37,4 +40,17 @@ private:
 
 	UPROPERTY()
 	UUserWidget* HUD;
+
+	UFUNCTION(BlueprintCallable)
+	void UnPause();
+
+	UPROPERTY(EditAnywhere)
+	bool bGameStarted = false;
+
+	UPROPERTY(VisibleAnywhere)
+	float Seconds = 0;
+
+	void ExecuteRequest();
+
+	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
 };
